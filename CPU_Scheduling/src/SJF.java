@@ -1,15 +1,15 @@
 import java.util.*;
 import javafx.util.*;
 public class SJF {
-	private ArrayList<Integer> burstTimes = new ArrayList<Integer>();
-	private ArrayList<Pair<String,Integer>> processes = new ArrayList<Pair<String,Integer>>();
+	private ArrayList<Integer> burstTimes = new ArrayList<>();
+	private ArrayList<Process> processes;
 	private ArrayList<Integer> TurnAroundTimes = new ArrayList<Integer>();
 	private ArrayList<Integer> WaitingTimes = new ArrayList<Integer>();
 	
-	SJF(ArrayList<Pair<String,Integer>> processes){
-		for (int i = 0; i < processes.size(); i++) {
-			burstTimes.add(processes.get(i).getValue());
-			
+	SJF(ArrayList<Process> processes){
+		for (Process process : processes) {
+			burstTimes.add(process.getBurstTime());
+
 		}
 		
 		Collections.sort(burstTimes);
@@ -21,8 +21,8 @@ public class SJF {
 		for (int i = 0; i < burstTimes.size(); i++) {
 			System.out.print("P" + (i + 1) + " : ");
 			for (int j = 0; j < burstTimes.size(); j++) {
-				if (processes.get(j).getValue() == burstTimes.get(i)) {
-					System.out.println(processes.get(j).getKey());
+				if (processes.get(j).getBurstTime() == burstTimes.get(i)) {
+					System.out.println(processes.get(j).getName());
 					break;
 				}
 			}
