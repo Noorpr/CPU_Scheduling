@@ -64,4 +64,17 @@ public class SJF {
 		
 		return sum / TurnAroundTimes.size();
 	}
+
+	public void run(){
+		System.out.println("Process Execution Order:");
+		Scheduler.getProcessExecutionOrder();
+		System.out.println();
+		System.out.println("Waiting Time For Each Process:");
+		Scheduler.getWaitingTimeForEachProcess();
+		System.out.println();
+		System.out.println("TurnAround Time For Each Process:");
+		Scheduler.getTurnAroundTimeForEachProcess();
+		System.out.println("\nAverage waiting time: " + Scheduler.getAverageWaitingTime());
+		System.out.println("Average turnaround time: " + Scheduler.getAverageTurnAroundTime())
+	}
 }
