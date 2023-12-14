@@ -87,7 +87,7 @@ public class Main {
 					// AG
 					System.out.println("\n----Implementing AG----");
 					AG ag = new AG(processes, contextSwitching, qt);
-
+					ag.run();
 					break;
 
 				default:
