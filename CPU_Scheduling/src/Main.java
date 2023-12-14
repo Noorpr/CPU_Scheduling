@@ -60,18 +60,8 @@ public class Main {
 
 				case 1:
 					SJF Scheduler = new SJF(processes);
-
 					System.out.println("\n----Implementing SJF----");
-					System.out.println("Process Execution Order:");
-					Scheduler.getProcessExecutionOrder();
-					System.out.println();
-					System.out.println("Waiting Time For Each Process:");
-					Scheduler.getWaitingTimeForEachProcess();
-					System.out.println();
-					System.out.println("TurnAround Time For Each Process:");
-					Scheduler.getTurnAroundTimeForEachProcess();
-					System.out.println("\nAverage waiting time: " + Scheduler.getAverageWaitingTime());
-					System.out.println("Average turnaround time: " + Scheduler.getAverageTurnAroundTime());
+					Scheduler.run();
 					break;
 
 				case 2:
