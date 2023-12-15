@@ -1,6 +1,7 @@
 import javafx.util.Pair;
 import java.util.*;
 import javafx.util.*;
+import java.lang.Math;
 
 
 
@@ -26,17 +27,17 @@ public class AG {
 //    Process agProcess;
 
     // Constructor
-    AG(ArrayList<Process> processes, int contextSw, int qt ){
+    AG(ArrayList<Process> processes, int contextSw){
         int randInt;
-        this.qt = qt;
+//        this.qt = qt;
         this.contextSwitching = contextSw;
 
         for (Process process : processes) {
 
-            // old style to be removed if the new works good and remove the attributs
-//            burstTime = process.getBurstTime();
-//            priorityNumber = process.getPriorityTime();
-//            arrivalTime = process.getArrivalTime();
+            // old style if the new works good remove the attributs and put variables inested
+            burstTime = process.getBurstTime();
+            priorityNumber = process.getPriorityTime();
+            arrivalTime = process.getArrivalTime();
 
 
             randInt = rand();
@@ -99,6 +100,16 @@ public class AG {
     }
 
     public void run(){
+
+        double halfQt;
+        for (Process process : agProcesses){
+
+            halfQt = Math.ceil((double) process.getQuantumTime() / 2);
+//            if(process.getArrivalTime()
+
+
+
+        }
 
     }
 

@@ -21,7 +21,7 @@ public class Main {
 
 		System.out.print("Please Enter the number of processes: ");
 		numOfProcesses = scanner.nextInt();
-		System.out.print("Please Enter the Round Robin Time Quantum Time: ");
+		System.out.print("Please Enter the Round Robin Quantum Time: ");
 		qt = scanner.nextInt();
 		System.out.print("Please Enter the Context Switching: ");
 		contextSwitching = scanner.nextInt();
@@ -40,7 +40,7 @@ public class Main {
 			System.out.print("Please Enter the " + (i + 1) + " process priority number: ");
 			priorityNum = scanner.nextInt();
 
-			process = new Process(ProcessName, arrivalTime, BurstTime, priorityNum);
+			process = new Process(ProcessName, arrivalTime, BurstTime, priorityNum, qt);
 
 			processes.add(process);
 		}
@@ -76,7 +76,7 @@ public class Main {
 				case 4:
 					// AG
 					System.out.println("\n----Implementing AG----");
-					AG ag = new AG(processes, contextSwitching, qt);
+					AG ag = new AG(processes, contextSwitching);
 					ag.run();
 					break;
 
