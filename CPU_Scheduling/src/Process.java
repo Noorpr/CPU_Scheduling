@@ -40,6 +40,10 @@ public class Process {
     public int getPriorityTime() {
         return priorityTime;
     }
+    //for solving starvation 
+       public void setPriorityTime(int newPriority) {
+        this.priorityTime = newPriority;
+    }
 
     public String getName() {
         return name;
