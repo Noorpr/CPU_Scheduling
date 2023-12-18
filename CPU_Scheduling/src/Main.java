@@ -72,6 +72,11 @@ public class Main {
 				case 3:
 					// Priority
 					System.out.println("\n----Implementing Priority----");
+					Priority priorityScheduler = new Priority(processes);
+					// Execute the scheduler
+					priorityScheduler.execute();
+					// Display the results
+					priorityScheduler.displayResults();
 					break;
 				case 4:
 					// AG
