@@ -1,5 +1,5 @@
-import java.util.*;
-import javafx.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
@@ -76,7 +76,7 @@ public class Main {
 				case 4:
 					// AG
 					System.out.println("\n----Implementing AG----");
-					AG ag = new AG(processes, contextSwitching);
+					AG ag = new AG(processes, contextSwitching, qt);
 					ag.run();
 					break;
 

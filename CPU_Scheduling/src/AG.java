@@ -1,118 +1,67 @@
-import javafx.util.Pair;
-import java.util.*;
-import javafx.util.*;
-import java.lang.Math;
+// Import statements
 
-
+import java.util.List;
+import java.util.Random;
 
 public class AG {
-
-    // i think i dont need all of these i just need Integer not array then i will
-    // return each process values from get()
-
-//    private ArrayList<Integer> burstTimes = new ArrayList<>();
-//    private ArrayList<Process> processes;
-//    private ArrayList<Integer> TurnAroundTimes = new ArrayList<>();
-//    private ArrayList<Integer> WaitingTimes = new ArrayList<>();
-
-    private ArrayList<Process> agProcesses;
-    private int burstTime;
-    private int turnAroundTime;
-    private int waitingTime;
-    private int qt;
-    private int agFactor;
+    private List<Process> agProcesses;
     private int contextSwitching;
-    int arrivalTime;
-    int priorityNumber;
-//    Process agProcess;
+    private int quantumTime;
 
-    // Constructor
-    AG(ArrayList<Process> processes, int contextSw){
-        int randInt;
-//        this.qt = qt;
-        this.contextSwitching = contextSw;
-
-        for (Process process : processes) {
-
-            // old style if the new works good remove the attributs and put variables inested
-            burstTime = process.getBurstTime();
-            priorityNumber = process.getPriorityTime();
-            arrivalTime = process.getArrivalTime();
-
-
-            randInt = rand();
-            if(randInt < 10)
-                agFactor = arrivalTime + burstTime + randInt;
-            else if(randInt == 10)
-                agFactor = arrivalTime + burstTime + priorityNumber;
-            else
-                agFactor = arrivalTime + burstTime + 10;
-
-            // set the ag Factor as an attribute with the process
-            // and then set the list of agProcess to the normal process
-            process.setAgFactor(agFactor);
-            this.agProcesses = processes;
-
-
-            // all the following is from the old style to be removed
-
-            // if there is error try to unComment the next line
-//            assert false;
-            // call constructor of the AG from the Process
-//            agProcesses.add(new Process(process.getName(), arrivalTime, burstTime, priorityNumber, agFactor));
-
-        }
+    public AG(List<Process> processes, int contextSwitching, int quantumTime) {
+        this.contextSwitching = contextSwitching;
+        this.quantumTime = quantumTime;
+        this.agProcesses = processes;
     }
 
-
-    private int rand(){
-        // do rand between 0,20 and return it to use it in calculation
+    private int getRandomNumber() {
         Random random = new Random();
         return random.nextInt(20);
     }
 
+    public void run() {
+        for (Process process : agProcesses) {
+            int halfQuantum = process.getQuantumTime() / 2;
 
+            if (process.getArrivalTime() < halfQuantum && halfQuantum != 0) {
+                System.out.println("Process " + process.getName() + " is running non-preemptively for half quantum time.");
+                process.setRemainingTime(0);
+            } else {
+                int currentTime = 0;
 
-    void getProcessExecutionOrder() {
+                while (process.getRemainingTime() > 0) {
+                    boolean switched = false;
 
-    }
-    void getWaitingTimeForEachProcess() {
+                    if (currentTime >= halfQuantum) {
+                        for (Process otherProcess : agProcesses) {
+                            if (otherProcess.getAgFactor() < process.getAgFactor() &&
+                                    otherProcess.getRemainingTime() > 0) {
+                                System.out.println("Switching to process " + otherProcess.getName() +
+                                        " due to smaller AG factor.");
+                                process.setQuantumTime(0);
+                                agProcesses.add(process);
+                                process = otherProcess;
+                                agProcesses.remove(otherProcess);
+                                switched = true;
+                                break;
+                            }
+                        }
+                    }
 
-    }
+                    if (!switched) {
+                        System.out.println("Process " + process.getName() + " is running preemptively.");
+                        process.setRemainingTime(process.getRemainingTime() - quantumTime);
+                        process.setAgFactor(process.getAgFactor() + getRandomNumber());
 
+                        if (process.getRemainingTime() <= 0) {
+                            System.out.println("Process " + process.getName() + " has finished execution.");
+                            break; // Break the loop when a process finishes
+                        }
+                    }
 
-    void getTurnAroundTimeForEachProcess() {
-    }
-
-    int getAverageWaitingTime() {
-
-        return 0;
-    }
-
-    int getAverageTurnAroundTime() {
-
-        return 0;
-    }
-
-    void getQauntumTimetHistory(){
-
-        System.out.println();
-    }
-
-    public void run(){
-
-        double halfQt;
-        for (Process process : agProcesses){
-
-            halfQt = Math.ceil((double) process.getQuantumTime() / 2);
-//            if(process.getArrivalTime()
-
-
-
+                    currentTime++;
+                }
+            }
         }
-
     }
-
 }
-
-
