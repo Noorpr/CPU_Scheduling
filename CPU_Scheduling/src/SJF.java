@@ -15,14 +15,39 @@ public class SJF {
             arrivalTimes.add(process.getArrivalTime());
         }
         Collections.sort(arrivalTimes);
-        for (int i = 0; i < arrivalTimes.size(); i++){
-            for (Process process : processes){
-                if (arrivalTimes.get(i) == process.getArrivalTime()){
-                    burstTimes.add(process.getBurstTime() + contextSwitching);
-                    break;
+        Set<Integer> s = new HashSet<Integer>(arrivalTimes);
+        if (s.size() == 1){
+            for (int i = 0; i < arrivalTimes.size(); i++){
+                if (arrivalTimes.get(i) == processes.get(i).getArrivalTime()){
+                    burstTimes.add(processes.get(i).getBurstTime() + contextSwitching);
                 }
             }
+            Collections.sort(burstTimes);
         }
+        else{
+            for (int i = 0; i < arrivalTimes.size(); i++){
+                for (Process process : processes){
+                    if (arrivalTimes.get(i) == process.getArrivalTime()){
+                        burstTimes.add(process.getBurstTime() + contextSwitching);
+                        i++;
+                    }
+                }
+            }
+            int start = 0 , end = 0;
+            for (int i = 0; i < arrivalTimes.size() - 1; i++){
+                if (arrivalTimes.get(i) == arrivalTimes.get(i + 1)){
+                    start = i;
+                    for (int j = i + 1; j < arrivalTimes.size(); j++){
+                        if (arrivalTimes.get(j) == arrivalTimes.get(j - 1)){
+                            end = j;
+                        }
+                    }
+                }
+            }
+            Collections.sort(burstTimes.subList(start, end + 1));
+        }
+
+
 
 //        Collections.sort(burstTimes);
 
